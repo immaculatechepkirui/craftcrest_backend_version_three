@@ -227,13 +227,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer 
 
-    def get_queryset(self):
-        user = self.request.user
-        if hasattr(user, 'buyer_orders'):  
-            return Order.objects.filter(buyer_id=user)
-        elif hasattr(user, 'artisan_orders'):
-            return Order.objects.filter(artisan_id=user)
-        return Order.objects
+    
 
     def confirm_payment(self, request, pk=None):
         order = self.get_object()
