@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+env/
+venv/
+.venv
+db.sqlite3
+.env
+.vscode/
+.idea/
+.history/
+.lh/
+staticfiles/
+media/
+.media/get-pip.py
+.media/portfolio_images/
