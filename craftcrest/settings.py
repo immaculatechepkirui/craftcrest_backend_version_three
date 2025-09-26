@@ -9,38 +9,25 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-DEBUG = True
-ALLOWED_HOSTS = ["*"]
+
 import dj_database_url
-import os
 from pathlib import Path
 import os
 from dotenv import load_dotenv
 from datetime import timedelta
 from decouple import config
 
-
-load_dotenv()  
-SECRET_KEY = os.getenv('SECRET_KEY')
-
-
-LOCATIONIQ_API_KEY = os.getenv('LOCATIONIQ_API_KEY')
-
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+DEBUG = os.getenv('DEBUG','False'.lower()in ['true','1','yes'])
+load_dotenv()  
+
+SECRET_KEY = os.getenv('SECRET_KEY')
+LOCATIONIQ_API_KEY = os.getenv('LOCATIONIQ_API_KEY')
+DEBUG = True
+ALLOWED_HOSTS = ["*"]
 
 
-DARAJA_CONSUMER_KEY = os.getenv("DARAJA_CONSUMER_KEY")
-DARAJA_CONSUMER_SECRET = os.getenv("DARAJA_CONSUMER_SECRET")
-DARAJA_SHORTCODE = os.getenv("DARAJA_SHORTCODE")
-DARAJA_PASSKEY = os.getenv("DARAJA_PASSKEY")
-DARAJA_CALLBACK_URL = os.getenv("DARAJA_CALLBACK_URL")
 
-DARAJA_INITIATOR_NAME = os.getenv("DARAJA_INITIATOR_NAME")
-DARAJA_SECURITY_CREDENTIAL = os.getenv("DARAJA_SECURITY_CREDENTIAL")
-DARAJA_B2C_TIMEOUT_URL = os.getenv("DARAJA_B2C_TIMEOUT_URL")
-DARAJA_B2C_RESULT_URL = os.getenv("DARAJA_B2C_RESULT_URL")
 
 
 
@@ -49,17 +36,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(dotenv_path=BASE_DIR / '.env')
 
 
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 SECRET_KEY = config('SECRET_KEY', default='craftcrestapp@2025')
 
-
-DEBUG = config('DEBUG', default=True, cast=bool)
 
 # ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1:8000/').split(',')
 
@@ -149,6 +130,16 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = 'users.User'
 
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'CraftCrest API',
+    'DESCRIPTION': 'CraftCrest is a online marketplace that enables skilled artisans to showcase their craftsmanship.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SWAGGER_UI_DIST': 'SIDECAR',
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+}
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
@@ -162,10 +153,11 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -182,7 +174,16 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': []
 
 }
+DARAJA_CONSUMER_KEY = os.getenv("DARAJA_CONSUMER_KEY")
+DARAJA_CONSUMER_SECRET = os.getenv("DARAJA_CONSUMER_SECRET")
+DARAJA_SHORTCODE = os.getenv("DARAJA_SHORTCODE")
+DARAJA_PASSKEY = os.getenv("DARAJA_PASSKEY")
+DARAJA_CALLBACK_URL = os.getenv("DARAJA_CALLBACK_URL")
 
+DARAJA_INITIATOR_NAME = os.getenv("DARAJA_INITIATOR_NAME")
+DARAJA_SECURITY_CREDENTIAL = os.getenv("DARAJA_SECURITY_CREDENTIAL")
+DARAJA_B2C_TIMEOUT_URL = os.getenv("DARAJA_B2C_TIMEOUT_URL")
+DARAJA_B2C_RESULT_URL = os.getenv("DARAJA_B2C_RESULT_URL")
 
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
 EMAIL_HOST = os.getenv('EMAIL_HOST')
@@ -210,13 +211,3 @@ LOGOUT_REDIRECT_URL = '/'
 
 
 
-
-SPECTACULAR_SETTINGS = {
-    'TITLE': 'CraftCrest API',
-    'DESCRIPTION': 'CraftCrest is a online marketplace that enables skilled artisans to showcase their craftsmanship.',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
-    'SWAGGER_UI_DIST': 'SIDECAR',
-    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
-    'REDOC_DIST': 'SIDECAR',
-}
